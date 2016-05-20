@@ -1,0 +1,40 @@
+id,project,category,name,description,amount_min,amount_max
+1a,"North Hill (South Facing) Cabins","Preliminaries","Survey",,1000.0,1000.0
+1b,"North Hill (South Facing) Cabins","Preliminaries","Soil stability testing",,5000.0,5000.0
+1c,"North Hill (South Facing) Cabins","Preliminaries","Soil contamination testing",,2000.0,2000.0
+1d,"North Hill (South Facing) Cabins","Preliminaries","Fire study",,1000.0,1000.0
+1e,"North Hill (South Facing) Cabins","Preliminaries","DA Application including drawing",,5000.0,5000.0
+1f,"North Hill (South Facing) Cabins","Preliminaries","Contributions to Council",,5000.0,5000.0
+1g,"North Hill (South Facing) Cabins","Preliminaries","Landscape plan (visual screening)",,1000.0,1000.0
+2a,"North Hill (South Facing) Cabins","Earthworks","Earthworks for slab or platform",,5000.0,5000.0
+2b,"North Hill (South Facing) Cabins","Earthworks","Road works, parking area, batters, waste trenches",,33000.0,48000.0
+2d,"North Hill (South Facing) Cabins","Earthworks","Retaining walls","allow",10000.0,10000.0
+2e,"North Hill (South Facing) Cabins","Earthworks","Earthworks for waste disposal","allow",5000.0,5000.0
+2f,"North Hill (South Facing) Cabins","Earthworks","Drainage including ag drains","allow",2000.0,2000.0
+3a,"North Hill (South Facing) Cabins","General Work","Animal fencing to be decided","allow",3000.0,3000.0
+3b,"North Hill (South Facing) Cabins","General Work","Wireless connection","allow",3000.0,3000.0
+3c,"North Hill (South Facing) Cabins","General Work","On-grid mains supply","2 cabins",40000.0,40000.0
+4a,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Prefab cabins or sheds timber floor","add 15000 to slab model",75000.0,75000.0
+4b,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Fire protection measures","allow",10000.0,10000.0
+4c,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Fit out, walls, built-ins",,5000.0,5000.0
+4d,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Wind screening",,2000.0,2000.0
+4e,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Electrical fit out",,10000.0,10000.0
+4f,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Plumbing","allow",4000.0,4000.0
+4g,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Gas hot water","allow",1000.0,1000.0
+4h,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Gas supply","allow",2000.0,2000.0
+4i,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Water tanks, Waste disposal system, pumps",,12000.0,12000.0
+4j,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Carport or parking under or on verandah","allow",10000.0,10000.0
+4k,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Paving","allow",2000.0,2000.0
+4l,"North Hill (South Facing) Cabins","Building and Services - cabin 1","Landscape works","allow",3000.0,3000.0
+4a,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Prefab cabins or sheds timber floor","add 15000 to slab model",75000.0,75000.0
+4b,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Fire protection measures","allow",10000.0,10000.0
+4c,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Fit out, walls, built-ins",,5000.0,5000.0
+4d,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Wind screening",,2000.0,2000.0
+4e,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Electrical fit out",,10000.0,10000.0
+4f,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Plumbing","allow",4000.0,4000.0
+4g,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Gas hot water","allow",1000.0,1000.0
+4h,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Gas supply","allow",2000.0,2000.0
+4i,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Water tanks, Waste disposal system, pumps",,12000.0,12000.0
+4j,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Carport or parking under or on verandah","allow",10000.0,10000.0
+4k,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Paving","allow",2000.0,2000.0
+4l,"North Hill (South Facing) Cabins","Building and Services - cabin 2","Landscape works","allow",3000.0,3000.0
