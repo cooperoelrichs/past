@@ -88,7 +88,7 @@ class Scenario(object):
             'loan_term': self.loan_term_in_years,
             'interest_rate': self.annual_interest_rate,
             'revenue': self.revenue_unit,
-            'aror': self.calculate_aror()
+            'annual_rate_of_return': self.calculate_annual_rate_of_return()
         }
 
 
@@ -174,7 +174,7 @@ class ScenarioTester(object):
         return X
 
     def labels(self):
-        return [s.label for s in self.scenarios]
+        return [s.label() for s in self.scenarios]
 
 
 class ScenarioTestResults(object):
