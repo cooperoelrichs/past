@@ -53,8 +53,10 @@ class ResultsPlotter(object):
         self.labels = labels
 
     def plot_and_savefig(self, file_name):
+        plt.figure()
         self.plot_it()
         plt.savefig(file_name, bbox_inches='tight')
+        plt.close()
 
     def plot_it(self):
         ax = plt.subplot(1, 1, 1)
@@ -129,11 +131,15 @@ class ResultsPlotter(object):
         return X
 
     def add_summary_label(self, ax):
-        best_case, worst_case = self.max_and_min_index(self.cumulative_profit)
-        best = self.make_summary_label(self.labels[best_case])
-        worst = self.make_summary_label(self.labels[worst_case])
-
-        label_str = 'best case: %s\nworst case: %s' % (best, worst)
+        series = self.cumulative_profit
+        if series.shape[0] > 1:
+            best_i, worst_i = self.max_and_min_index(self.cumulative_profit)
+            best = self.make_summary_label(self.labels[best_i])
+            worst = self.make_summary_label(self.labels[worst_i])
+            label_str = 'best case: %s\nworst case: %s' % (best, worst)
+        else:
+            single_case = self.make_summary_label(self.labels[0])
+            label_str = 'case summary: %s' % single_case
 
         ax.text(
             0.02, 0.79,
@@ -162,9 +168,9 @@ class ResultsPlotter(object):
         return '; '.join([
             '\${:,.0f}'.format(label['principle']),
             '{:,.0f} y'.format(label['loan_term']),
-            '%{:,.0f} i.r.'.format(label['interest_rate'] * 100),
+            '{:,.1f}% i.r.'.format(label['interest_rate'] * 100),
             '\${:,.0f} p.w.'.format(label['revenue']),
-            '%{:,.0f} a.r.o.r.'.format(label['annual_rate_of_return'] * 100)
+            '{:,.1f}% a.r.o.r.'.format(label['annual_rate_of_return'] * 100)
         ])
 
     def label_series(self, ax, series):
@@ -185,7 +191,7 @@ class ResultsPlotter(object):
 
     def make_aror_label(self, label):
         aror = label['annual_rate_of_return']
-        label_str = '%{:,.0f} a.r.o.r.'.format(aror * 100)
+        label_str = '{:,.0f}% a.r.o.r.'.format(aror * 100)
         return label_str
 
     def put_label_on_y(self, ax, X, Y, label, min_or_max):

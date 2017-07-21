@@ -212,8 +212,8 @@ class ScenarioTestResults(object):
         print(self.summarise_range_of_fractionals(
             'Annual Rate of Return', self.annual_rates_of_return))
 
-    def plot(self):
-        self.plotter.plot_and_savefig('results.png')
+    def plot(self, file_name):
+        self.plotter.plot_and_savefig(file_name)
 
     def summarise_range_of_dollars(self, name, X):
         v_min, v_max = self.min_max(X)
