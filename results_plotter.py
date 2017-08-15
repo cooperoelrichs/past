@@ -42,9 +42,11 @@ plot_formats = {
 
 class ResultsPlotter(object):
     def __init__(self,
+                 name,
                  amount_repayed, amount_owing,
                  cumulative_revenue, cumulative_profit,
                  labels):
+        self.name = name
         self.amount_repayed = amount_repayed
         self.amount_owing = amount_owing
         self.cumulative_revenue = cumulative_revenue
@@ -70,7 +72,7 @@ class ResultsPlotter(object):
         # ax = self.label_series(ax, self.cumulative_profit)
         ax = self.add_summary_label(ax)
 
-        plt.title('Oh Cabins - Comparison of Different Scenarios')
+        plt.title('Oh Cabins - Comparison of Different Scenarios\n%s' % self.name)
         plt.xlabel('Years')
         yl = plt.ylabel('$  ')
 

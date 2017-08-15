@@ -6,6 +6,7 @@ from .results_plotter import ResultsPlotter
 
 class Scenario(object):
     def __init__(self,
+                 name,
                  principle, annual_interest_rate,
                  loan_term_in_years, lead_time_in_years,
                  revenue_unit, annual_revenue_factor,
@@ -94,9 +95,11 @@ class Scenario(object):
 
 class ScenarioCollection(object):
     def __init__(self,
+                 name,
                  principles, annual_interest_rates, loan_terms_in_years,
                  lead_times_in_years, revenue_units,
                  annual_revenue_factor):
+        self.name = name
         self.principles = principles
         self.annual_interest_rates = annual_interest_rates
         self.loan_terms_in_years = loan_terms_in_years
@@ -109,8 +112,9 @@ class ScenarioCollection(object):
     def combine(self):
         scenarios = [
             Scenario(
+                self.name,
                 p, ir, lt, ld, ru,
-                self.annual_revenue_factor, self.max_load_length()
+                self.annual_revenue_factor, self.max_loan_length()
             )
             for p, ir, lt, ld, ru in itertools.product(
                 self.principles,
@@ -124,12 +128,13 @@ class ScenarioCollection(object):
         print('Created %i scenarios.' % len(scenarios))
         return scenarios
 
-    def max_load_length(self):
+    def max_loan_length(self):
         return max(self.loan_terms_in_years)
 
 
 class ScenarioTester(object):
-    def __init__(self, scenarios):
+    def __init__(self, name, scenarios):
+        self.name = name
         self.scenarios = scenarios
 
     def test(self):
@@ -140,6 +145,7 @@ class ScenarioTester(object):
         annual_rates_of_return = self.calculate_annual_rates_of_return()
 
         results = ScenarioTestResults(
+            self.name,
             amount_repayed_by_month, amount_owing_by_month,
             cumulative_revenue, cumulative_profit,
             annual_rates_of_return,
@@ -179,10 +185,12 @@ class ScenarioTester(object):
 
 class ScenarioTestResults(object):
     def __init__(self,
+                 name,
                  amount_repayed, amount_owing,
                  cumulative_revenue, cumulative_profit,
                  annual_rates_of_return,
                  labels):
+        self.name = name
         self.amount_repayed = amount_repayed
         self.amount_owing = amount_owing
         self.cumulative_revenue = cumulative_revenue
@@ -190,6 +198,7 @@ class ScenarioTestResults(object):
         self.annual_rates_of_return = annual_rates_of_return
 
         self.plotter = ResultsPlotter(
+            self.name,
             self.amount_repayed, self.amount_owing,
             self.cumulative_revenue, self.cumulative_profit,
             labels
@@ -197,6 +206,7 @@ class ScenarioTestResults(object):
         pass
 
     def summarise(self):
+        print(self.name)
         print(self.summarise_range_of_dollars(
             'Total Cost', self.amount_owing[:, 0]))
         print(self.summarise_range_of_dollars(
@@ -217,18 +227,23 @@ class ScenarioTestResults(object):
 
     def summarise_range_of_dollars(self, name, X):
         v_min, v_max = self.min_max(X)
-        return self.dollar_summary_str(name, v_min, v_max)
+        if len(X) == 1 or v_min == v_max:
+            return '{0}: ${1:,.0f}'.format(name, X[0])
+        else:
+            return '{0}: ${1:,.0f} - ${2:,.0f}'.format(name, v_min, v_max)
 
     def summarise_range_of_fractionals(self, name, X):
         v_min, v_max = self.min_max(X)
-        return self.fractional_summary_str(name, v_min, v_max)
+        if len(X) == 1 or v_min == v_max:
+            return '{0}: %{1:,.1f}'.format(name, X[0] * 100)
+        else:
+            return '{0}: %{1:,.1f} - %{2:,.1f}'.format(name, v_min * 100, v_max * 100)
 
     def min_max(self, X):
         return np.min(X), np.max(X)
 
-    def dollar_summary_str(self, name, v_min, v_max):
-        return '{0}: ${1:,.0f} - ${2:,.0f}'.format(name, v_min, v_max)
+    # def dollar_summary_str(self, name, v_min, v_max):
+    #     return '{0}: ${1:,.0f} - ${2:,.0f}'.format(name, v_min, v_max)
 
-    def fractional_summary_str(self, name, v_min, v_max):
-        return '{0}: %{1:,.1f} - %{2:,.1f}'.format(
-            name, v_min * 100, v_max * 100)
+    # def fractional_summary_str(self, name, v_min, v_max):
+    #     return '{0}: %{1:,.1f} - %{2:,.1f}'.format(name, v_min * 100, v_max * 100)
