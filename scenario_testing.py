@@ -7,12 +7,13 @@ from .results_plotter import ResultsPlotter
 class Scenario(object):
     def __init__(self,
                  name,
-                 principle, annual_interest_rate,
+                 principle, annual_interest_rate, interest_only,
                  loan_term_in_years, lead_time_in_years,
                  revenue_unit, annual_revenue_factor,
                  max_loan_term):
         self.principle = principle
         self.annual_interest_rate = annual_interest_rate
+        self.interest_only = interest_only
         self.loan_term_in_years = loan_term_in_years
         self.lead_time_in_years = lead_time_in_years
         self.revenue_unit = revenue_unit
@@ -24,7 +25,10 @@ class Scenario(object):
         p = self.principle
         n = self.number_of_periods()
 
-        c = r * p / (1 - (1 + r) ** -n)
+        if self.interest_only:
+            c = r * p
+        elif not self.interest_only:
+            c = r * p / (1 - (1 + r) ** -n)
         return c
 
     def calculate_amount_repayed_by_month(self):
@@ -96,12 +100,14 @@ class Scenario(object):
 class ScenarioCollection(object):
     def __init__(self,
                  name,
-                 principles, annual_interest_rates, loan_terms_in_years,
+                 principles, annual_interest_rates,
+                 interest_only, loan_terms_in_years,
                  lead_times_in_years, revenue_units,
                  annual_revenue_factor):
         self.name = name
         self.principles = principles
         self.annual_interest_rates = annual_interest_rates
+        self.interest_only = interest_only
         self.loan_terms_in_years = loan_terms_in_years
         self.lead_times_in_years = lead_times_in_years
         self.revenue_units = revenue_units
@@ -113,12 +119,13 @@ class ScenarioCollection(object):
         scenarios = [
             Scenario(
                 self.name,
-                p, ir, lt, ld, ru,
+                p, ir, io, lt, ld, ru,
                 self.annual_revenue_factor, self.max_loan_length()
             )
-            for p, ir, lt, ld, ru in itertools.product(
+            for p, ir, io, lt, ld, ru in itertools.product(
                 self.principles,
                 self.annual_interest_rates,
+                self.interest_only,
                 self.loan_terms_in_years,
                 self.lead_times_in_years,
                 self.revenue_units
