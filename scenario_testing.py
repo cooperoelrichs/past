@@ -145,6 +145,7 @@ class ScenarioTester(object):
         self.scenarios = scenarios
 
     def test(self):
+        interest_rate = self.extract_interest_rates()
         amount_repayed_by_month = self.calculate_amounts_repayed_by_month()
         amount_owing_by_month = self.calculate_amounts_owing_by_month()
         cumulative_revenue = self.calculate_cumulative_revenues_by_month()
@@ -153,12 +154,16 @@ class ScenarioTester(object):
 
         results = ScenarioTestResults(
             self.name,
+            interest_rate,
             amount_repayed_by_month, amount_owing_by_month,
             cumulative_revenue, cumulative_profit,
             annual_rates_of_return,
             self.labels()
         )
         return results
+
+    def extract_interest_rates(self):
+        return [s.annual_interest_rate for s in self.scenarios]
 
     def calculate_repayment_amounts(self):
         fns = [s.calculate_repayment_amount for s in self.scenarios]
@@ -193,11 +198,13 @@ class ScenarioTester(object):
 class ScenarioTestResults(object):
     def __init__(self,
                  name,
+                 interest_rate,
                  amount_repayed, amount_owing,
                  cumulative_revenue, cumulative_profit,
                  annual_rates_of_return,
                  labels):
         self.name = name
+        self.interest_rate = interest_rate
         self.amount_repayed = amount_repayed
         self.amount_owing = amount_owing
         self.cumulative_revenue = cumulative_revenue
@@ -214,20 +221,29 @@ class ScenarioTestResults(object):
 
     def summarise(self):
         print(self.name)
+        print(self.summarise_range_of_fractionals(
+            'Interest Rate', self.interest_rate
+        ))
         print(self.summarise_range_of_dollars(
-            'Total Cost', self.amount_owing[:, 0]))
+            'Total Cost', self.amount_owing[:, 0]
+        ))
         print(self.summarise_range_of_dollars(
-            'Monthly Repayment', self.amount_repayed[:, 1]))
+            'Monthly Repayment', self.amount_repayed[:, 1]
+        ))
         print(self.summarise_range_of_dollars(
             'Monthly Revenue',
-            self.cumulative_revenue[:, -1] - self.cumulative_revenue[:, -2]))
+            self.cumulative_revenue[:, -1] - self.cumulative_revenue[:, -2]
+        ))
         print(self.summarise_range_of_dollars(
             'Monthly Profit',
-            self.cumulative_profit[:, -1] - self.cumulative_profit[:, -2]))
+            self.cumulative_profit[:, -1] - self.cumulative_profit[:, -2]
+        ))
         print(self.summarise_range_of_dollars(
-            'Total Profit', self.cumulative_profit[:, -1]))
+            'Total Profit', self.cumulative_profit[:, -1]
+        ))
         print(self.summarise_range_of_fractionals(
-            'Annual Rate of Return', self.annual_rates_of_return))
+            'Annual Rate of Return', self.annual_rates_of_return
+        ))
 
     def plot(self, file_name):
         self.plotter.plot_and_savefig(file_name)
